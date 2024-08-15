@@ -1,0 +1,9 @@
+
+select v.customer_id ,count(*) as count_no_trans
+from Visits as v
+where visit_id not in/*means visit id will not be in transactions table*/
+(
+    select visit_id
+    from Transactions
+)
+group by v.customer_id ;
