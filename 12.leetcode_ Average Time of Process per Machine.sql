@@ -44,26 +44,25 @@ group by a1.machine_id;
 
 
 
+#approach 3
 
+select a1.machine_id ,round(avg(a2.timestamp-a1.timestamp),3) as processing_time
+from Activity as a1
+join Activity as a2
+using(machine_id , process_id)
+where a1.activity_type='start'
+and a2.activity_type='end'
+group by 1;
 
+/*
+The USING (machine_id, process_id) clause specifies that 
+the join is done based on the combination of machine_id and process_id. 
+This means that for each machine_id and process_id pair, 
+rows are matched between StartActivity and EndActivity.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+GROUP BY 1 groups the results by the first column in the SELECT clause, 
+which is a1.machine_id.
+This ensures that the average processing time 
+is calculated for each machine separately.
+*/
 
