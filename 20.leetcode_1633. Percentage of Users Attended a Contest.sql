@@ -45,14 +45,21 @@ group by contest_id
 order by percentage desc,contest_id asc;
 
 
+-- The intuition to create a subquery comes from the need to retrieve data that is not directly available in the current context of the main query.
+
+/*
+WITH clause is used to define a Common Table Expression (CTE). 
+A CTE is a temporary result set that you can reference within a SELECT, INSERT, UPDATE, or DELETE statement. 
+It helps in structuring and simplifying complex queries by allowing you to break them down into more manageable parts.
+
+The WITH clause allows you to name a result set and refer to it within the main query. 
+CTEs are particularly useful when you have a complex query that needs to reference the same result set multiple times.
 
 
-
-
-
-
-
-
+WITH Clause Definition:
+WITH TotalUsers AS (...) defines a Common Table Expression named TotalUsers.
+Inside the parentheses, you write a query that returns a result set. In this case, the query is SELECT COUNT(*) AS total_users FROM Users.
+*/
 
 
 
