@@ -92,6 +92,38 @@ SELECT name: This selects and returns the name of each manager who meets the cri
 */
 
 
+#What if I use = instead of in like 
+
+select name from Employee
+where id =
+(select managerId 
+from employee
+group by managerId 
+having (count(id))>=5);
+
+/*
+🧠 The difference:
+1. = (equals):
+
+    Expects the subquery to return exactly one value.
+
+    Will throw an error if the subquery returns multiple rows.
+
+    ❌ If 2+ managers have ≥5 employees, this will break:
+    
+    id = (SELECT managerId ...) -- error: subquery returns more than 1 row
+    
+2. IN:
+
+    Expects a list of values.
+
+    Works even if subquery returns multiple manager IDs.
+
+    ✅ Safer when expecting zero, one, or many rows.
+*/
+
+
+
 #approach: 3
 
 SELECT name
@@ -126,21 +158,3 @@ HAVING COUNT(*) >= 5: After grouping by managerId, this condition filters the gr
 Result: The subquery returns a list of managerIds for managers who have at least 5 direct reports.
 
 */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
