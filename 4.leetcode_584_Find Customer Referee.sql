@@ -43,15 +43,32 @@ select name
 from customer
 where coalesce(referee_id,0)<>2;
 
--- COALESCE(referee_id, 0) is used to handle NULL values in the referee_id column.It's a inbuilt function.
--- <> is the SQL operator for "not equal to."
--- The condition COALESCE(referee_id, 0) <> 2
--- means "if the referee_id is not equal to 2," 
--- where 0 is used to represent customers with no referrer (NULL).
+/*
+🔍 What it does:
+COALESCE(referee_id, 0):
+This replaces NULL values in referee_id with 0.
+So:
+If referee_id = 2 ➜ stays 2
+If referee_id = NULL ➜ becomes 0
+If referee_id = 1 ➜ stays 1
+<> 2:
+Means “not equal to 2”
+Excludes customers referred by id = 2
+
+*/
 
 
+-- 4.Using IFNULL
 
+SELECT name
+FROM Customer
+WHERE IFNULL(referee_id, 0) != 2;
+/*
+✅ What IFNULL() does:
 
+IFNULL(expr1, expr2) is a MySQL function that:
 
+    Returns expr1 if it's NOT NULL
 
-
+    Returns expr2 if expr1 IS NULL
+*/
