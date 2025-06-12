@@ -1,19 +1,45 @@
-#approach1
+-- #approach1
 
-select product_name , year , price
-from Sales as s
-left join Product as p
-on p.product_id=s.product_id;
+SELECT p.product_name, s.year, s.price
+FROM sales AS s
+LEFT JOIN product AS p
+  ON s.product_id = p.product_id;
+-- Optional: WHERE s.sale_id IS NOT NULL;
 
-/*
-Question:
-solution to report the product_name, year, and price for each sale_id in the Sales table.
+'''
+Key Understanding:
 
-here, we need to perfrom on for each sale_id in the sales table.
-The sales table situated is a left table, so we'll perform left join. 
+    The Sales table drives the query, because we care about each sale_id.
 
-*/
-#approach 2:
+    You are doing a LEFT JOIN from Sales to Product, meaning:
+
+        All rows from Sales will be kept.
+
+        If a product_id from Sales doesnt exist in Product, youll get NULL for product_name.
+
+  
+Why "WHERE s.sale_id IS NOT NULL" is not necessary:
+
+Because:
+
+    sale_id is the primary key in the Sales table.
+
+    When you do FROM Sales, every row will have a non-null sale_id.
+
+    Youre joining from Sales, so the only possible NULLs will appear in Product columns (like product_name), not in sale_id.
+
+    So WHERE s.sale_id IS NOT NULL does nothing — its redundant.
+  
+  The LEFT JOIN already ensures we only get sales records:
+
+    Starting with FROM Sales means we only process rows that exist in Sales
+    The LEFT JOIN then adds product information to these sales records
+'''
+  
+===============================================================================================================================================================================
+
+  -- #approach 2:most appropriate query
+  
 select product_name , year , price
 from Sales as s
 join Product as p
@@ -28,7 +54,7 @@ If there are any product_id values in Sales that do not have a corresponding pro
 
 */
 
-
+===============================================================================================================================================================================
 #approach 3
 select product_name , year , price
 from Product as p
@@ -39,6 +65,3 @@ on p.product_id=s.product_id;
 we can apply right join interchange both table's position 
 
 */
-
-
-
