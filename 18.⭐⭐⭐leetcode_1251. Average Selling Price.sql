@@ -1,4 +1,4 @@
-# Write your MySQL query statement below
+-- # Write your MySQL query statement below
 select  p.product_id ,
 coalesce(round(sum(p.price*u.units)/sum(u.units),2),0) as average_price 
 from Prices p
@@ -17,13 +17,14 @@ If i use coalesce, then it'll return like          3   0    which is correct
 
 For the corner case(which is given below):
 
-If i include where instead of and like:
+If i include 'WHERE' instead of 'AND' like:
 
 on p.product_id = u.product_id 
 where u.purchase_date between p.start_date and p.end_date
 
 
-For product ID 3, since there are no matching entries in UnitsSold, u.purchase_date is NULL, and the WHERE clause filters out this product, resulting in product ID 3 being excluded from the result set.
+For product ID 3, since there are no matching entries in UnitsSold, u.purchase_date is NULL, and the WHERE clause filters out this product, 
+resulting in product ID 3 being excluded from the result set.
 
 **The difference between using AND in the LEFT JOIN versus using a where clause. 
 Basically, when we use the where clause,
@@ -86,7 +87,7 @@ Expected
 
 */
 
-#approach 2(using ifnull)
+-- #approach 2(using ifnull)
 select  p.product_id ,
 ifnull(round(sum(p.price*u.units)/sum(u.units),2),0) as average_price 
 from Prices p
@@ -94,15 +95,6 @@ left join UnitsSold u
 on p.product_id = u.product_id 
 and u.purchase_date between p.start_date and p.end_date
 group by p. product_id;
-
-
-
-
-
-
-
-
-
 
 
 
